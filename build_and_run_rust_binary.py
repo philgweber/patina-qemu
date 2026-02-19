@@ -152,6 +152,12 @@ def _parse_arguments() -> argparse.Namespace:
         default=None,
         help="Port to use for QEMU monitor communication.",
     )
+    parser.add_argument(
+        "--headless",
+        action="store_true",
+        default=False,
+        help="Run QEMU without a display (headless mode).",
+    )
 
     args = parser.parse_args()
     if args.platform == "SBSA" and args.toolchain == "VS2022":
@@ -262,7 +268,7 @@ def _configure_settings(args: argparse.Namespace) -> Dict[str, Path]:
             .with_usb_controller()
             .with_usb_mouse()
             .with_storage(args.os, 'SSD')
-            .with_display()
+            .with_display(not args.headless)
             .with_network(enabled=False)
             .with_gdb_server(args.gdb_port)
             .with_serial_port(args.serial_port)
@@ -357,7 +363,7 @@ def _configure_settings(args: argparse.Namespace) -> Dict[str, Path]:
             .with_usb_mouse()
             .with_usb_keyboard()
             .with_storage(args.os, 'HDD')
-            .with_display()
+            .with_display(not args.headless)
             .with_network(enabled=False)
             .with_gdb_server(args.gdb_port)
             .with_serial_port(args.serial_port)
