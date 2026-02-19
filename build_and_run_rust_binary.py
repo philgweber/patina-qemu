@@ -544,8 +544,17 @@ def _run_qemu(settings: Dict[str, Path]) -> None:
         if std_handle != 0:
             if not kernel32.GetConsoleMode(std_handle, ctypes.byref(original_mode)):
                 std_handle = None
+
+    # Known benign QEMU exit codes:
+    #   0xC00000FD (STATUS_STACK_OVERFLOW)   - QEMU on Windows after guest reset -s
+    #   33                                   - QEMU isa-debug-exit success value
+    BENIGN_QEMU_EXIT_CODES = {0xC00000FD, 33}
+
     try:
         subprocess.run(settings["qemu_cmd"], check=True)
+    except subprocess.CalledProcessError as e:
+        if e.returncode not in BENIGN_QEMU_EXIT_CODES:
+            raise
     finally:
         if os.name == "nt" and std_handle and original_mode.value:
             # Restore the console mode for Windows as QEMU garbles it
