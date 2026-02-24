@@ -254,7 +254,6 @@ INF  MdeModulePkg/Universal/ResetSystemPei/ResetSystemPei.inf
 INF  MsCorePkg/Universal/StatusCodeHandler/Serial/Pei/SerialStatusCodeHandlerPei.inf
 INF  MsCorePkg/Core/GuidedSectionExtractPeim/GuidedSectionExtract.inf
 INF  MsWheaPkg/MsWheaReport/Pei/MsWheaReportPei.inf
-INF  OemPkg/DeviceStatePei/DeviceStatePei.inf
 INF  MfciPkg/MfciPei/MfciPei.inf
 
 INF  MsGraphicsPkg/MsUiTheme/Pei/MsUiThemePpi.inf
@@ -522,7 +521,7 @@ INF PrmPkg/PrmSsdtInstallDxe/PrmSsdtInstallDxe.inf
     SECTION PE32=$(OUTPUT_DIRECTORY)/$(TARGET)_$(TOOL_CHAIN_TAG)/X64/Shell.efi
     SECTION UI= "EdkShell"
   }
-  FILE FREEFORM = PCD(gOemPkgTokenSpaceGuid.PcdLogoFile) {
+  FILE FREEFORM = PCD(gQemuPkgTokenSpaceGuid.PcdLogoFile) {
     SECTION RAW = Logo/patina_boot_logo.bmp
     SECTION UI = "Logo"
   }

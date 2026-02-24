@@ -1,0 +1,39 @@
+## @file
+# BootGraphicsProviderLib that uses PCDs and raw files in the firmware volumes
+#
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = BootGraphicsProviderLib
+  FILE_GUID                      = 40c4a386-314a-4480-98ac-eeb557c2a646
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = BootGraphicsProviderLib|DXE_DRIVER UEFI_APPLICATION
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 AARCH64
+#
+
+[Sources]
+  BootGraphicsProviderLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  QemuPkg/QemuPkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  MsGraphicsPkg/MsGraphicsPkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  DebugLib
+  PcdLib
+  DxeServicesLib
+
+[Pcd]
+  gQemuPkgTokenSpaceGuid.PcdLogoFile
