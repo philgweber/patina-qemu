@@ -60,3 +60,4 @@ aarch64_toolchains("secure_qemu_aarch64") {
     plat_partition_max_uuids = 16
   }
 }
+
